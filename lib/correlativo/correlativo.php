@@ -1,5 +1,6 @@
 <?php
 	// ABC de correlativo
+	//NUEVO COMENTARIO SIN PRESIONAR EL BOTON SYNC
 	
 	// Lista los usuarios con opciones para editar, borrar y agregar
 	function list_correlativo_salida($busca, $page, $orden, $lista, $anio) {
