@@ -567,7 +567,7 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
 		$anio = date("Y");
          $id_representacion = get_cookie_representacion();
          
-	$correlativo = run_select_query("Select correlativo from correlativo where id=(select MAX(id) from correlativo where representacion = '$id_representacion')");
+	$correlativo = run_select_query("Select correlativo from correlativo where id=(select MAX(id) from correlativo where representacion = '$id_representacion' AND YEAR(fecha) = YEAR(CURDATE()))");
 	
 	return $correlativo[0][0]+1;	
 	}
