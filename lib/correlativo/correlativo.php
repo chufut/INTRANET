@@ -1,7 +1,5 @@
 <?php
 	// ABC de correlativo
-	//NUEVO COMENTARIO SIN PRESIONAR EL BOTON SYNC
-	//SEGUNDO COMENTARIO 
 	
 	// Lista los usuarios con opciones para editar, borrar y agregar
 	function list_correlativo_salida($busca, $page, $orden, $lista, $anio) {
@@ -141,6 +139,7 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
 					 <span class="highlight small center">
 					 <input type="submit" name="admin_correlativo_salida" value="Go" id="admin_correlativo_salida" class="button super_tiny"/>
                      <input type="hidden" name="page" value="<?php echo $page ?>"/>
+                      <input type="hidden" name="anio" value="<?php echo $anio ?>"/>
 					 </span> </td>
 				  </tr>
           </table>
@@ -496,7 +495,7 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
 	
 	
 	// Agrega el usuario a la BD
-		function do_add_correlativo_salida($tipo_documento, $destino, $asunto, $referencia, $expediente, $id_funcionario, $fecha, $texto_sicar, $archivo, $fecha_entrega, $mensajero, $fecha_acuse, $funcionario_acuse, $estado, $busca, $page, $orden, $lista, $anio) {
+		function do_add_correlativo_salida($tipo_documento, $destino, $asunto, $referencia, $expediente, $id_funcionario, $fecha, $texto_sicar, $archivo, $busca, $page, $orden, $lista, $anio) {
 	
 			$destino = addslashes($destino);
 			$asunto = addslashes($asunto);
@@ -507,10 +506,9 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
             $id_representacion = get_cookie_representacion();
 			$fecha = date('Y-m-d');
 			$correlativo = dame_correlativo_siguiente();
-			$estado = 'PENDIENTE';
 			
 			
-          	run_non_query("INSERT INTO correlativo  VALUES (null, $correlativo,'$tipo_documento','$destino','$asunto','$referencia','$expediente', '$id_funcionario', '$id_representacion', '$fecha', '$texto_sicar', '$archivo', '$fecha_entrega', '$mensajero', '$fecha_acuse', '$funcionario_acuse', '$estado')");
+          	run_non_query("INSERT INTO correlativo  VALUES (null, $correlativo,'$tipo_documento','$destino','$asunto','$referencia','$expediente', '$id_funcionario', '$id_representacion', '$fecha', '$texto_sicar', '$archivo')");
           
           	//echo "INSERT INTO correlativo  VALUES (null, $correlativo,  '$gua','$destino','$asunto','$referencia','$expediente', '$id_funcionario', '$fecha', '$texto_sicar', '$archivo')";
 			
@@ -526,7 +524,7 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
 	
 	
 	// Edita el usuario en BD
-	function do_edit_correlativo_salida($tipo_documento, $destino, $asunto, $referencia, $expediente, $texto_sicar, $archivo, $id, $busca, $page, $orden, $lista, $anio) {
+	function do_edit_correlativo_salida($tipo_documento, $destino, $asunto, $referencia, $expediente, $texto_sicar, $archivo,$id, $busca, $page, $orden, $lista, $anio) {
 		
         //Subimos archivo a carpeta de protocolo
 			 $ruta = '/var/www/html/gua/archivos/protocolo/';
@@ -568,6 +566,9 @@ AND correlativo.representacion = '$id_representacion' order by $orden $lista_que
          $id_representacion = get_cookie_representacion();
          
 	$correlativo = run_select_query("Select correlativo from correlativo where id=(select MAX(id) from correlativo where representacion = '$id_representacion' AND YEAR(fecha) = YEAR(CURDATE()))");
+	//echo "Select correlativo from correlativo where id=(select MAX(id) from correlativo where representacion = '$id_representacion' AND YEAR(fecha) == '$anio')";
+	
+	//exit;
 	
 	return $correlativo[0][0]+1;	
 	}

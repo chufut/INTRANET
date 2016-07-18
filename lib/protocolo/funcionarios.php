@@ -297,15 +297,14 @@
 			<tr>
 				<th class='title'>
 					Nombre: </th>
-				<td>	asa
-					<select name="nombre">
+				<td><select name="nombre">
 				  <option selected="selected">-------</option>
 				  <option>acreditacion</option>
 		                  <option>baja</option>
 		                  <option>calcomanía</option>
 		                  <option>carnet</option>
                           <option>credencial Embajada</option>
-                          <option>devolución placas</option>
+          <option>devolución placas</option>
 		                  <option>exeniva</option>
 		                  <option>franquicia importacion</option>
 		                  <option>franquicia vehiculos</option>
